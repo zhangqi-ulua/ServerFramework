@@ -1,0 +1,2 @@
+#因为本项目中有大量C#代码写的辅助工具，使得github误识别项目为C#项目，为了消除误会，进行此配置
+*.cs linguist-language=java
