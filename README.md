@@ -32,13 +32,20 @@
 ## 附带开源工具及客户端介绍
 ### RedisDataViewer：
 虽然市面上有一些第三方的Redis可视化查询操作工具，但一是筛选功能比较弱，比如对ZSet类型，无法限定查询指定index范围内或者指定分数范围内的数据，二是对于存储的protobuf类型转为的二进制数据，没有提供进行反序列化为可读文本查看的功能。因此，我做了这个工具解决上面2个问题。对Hash、List、ZSet均提供具体查询功能，对protobuf序列化存储的数据，可以反序列化为可读文本查看<br/>
-使用方法：在“redisKeyConfig.txt”配置文件中，根据格式要求（唯一id@分组（不分组则留空）@描述@key名格式@protobuf数据所对应的protobuf类名（非protobuf数据留空）@redis的数据类型（string、hash、list、set、zset）@备注信息）进行配置。就可以在打开工具时，选择这些配置对应的Redis数据进行查看。另外，默认配置文件中，已经将服务器框架中所用到的所有Redis数据都进行了配置登记，可以直接使用，也作为配置的实例供您参考
+使用方法：在“redisKeyConfig.txt”配置文件中，根据格式要求（唯一id@分组（不分组则留空）@描述@key名格式@protobuf数据所对应的protobuf类名（非protobuf数据留空）@redis的数据类型（string、hash、list、set、zset）@备注信息）进行配置。就可以在打开工具时，选择这些配置对应的Redis数据进行查看。另外，默认配置文件中，已经将服务器框架中所用到的所有Redis数据都进行了配置登记，可以直接使用，也作为配置的实例供您参考<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/RedisDataViewer1.png)<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/RedisDataViewer2.png)<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/RedisDataViewer3.png)<br/>
 ### TestServerFramework（游戏客户端实现）
-用C#.NET做的WinForm程序，实现了游戏客户端（井字棋）功能
+用C#.NET做的WinForm程序，实现了游戏客户端（井字棋）功能<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/TestServerFramework1.png)<br/>
 ### GameManager：
-用C#.NET做的WinForm程序，实现了GM客户端，可管理服务器执行GM命令，查询在线玩家详情
+用C#.NET做的WinForm程序，实现了GM客户端，可管理服务器执行GM命令，查询在线玩家详情<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/GameManager1.png)<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/GameManager2.png)<br/>
 ### 自动编译打包及运行
-在trunk\tools\release\AutoBuildServer中，执行“build.bat”可自动将所有类型的服务器通过Maven进行打包（需提前安装并配置好Maven的环境变量）执行“onekey run.bat”可自动启动Redis数据库并启动各个服务器
+在trunk\tools\release\AutoBuildServer中，执行“build.bat”可自动将所有类型的服务器通过Maven进行打包（需提前安装并配置好Maven的环境变量）执行“onekey run.bat”可自动启动Redis数据库并启动各个服务器<br/>
+![](https://github.com/zhangqi-ulua/ServerFramework/blob/master/doc/screenshots/AutoBuildAndRun.png)<br/>
 ## 其他说明
 ### protobuf的编译
 在trunk\proto中执行“compile.bat”，可编译服务器所需Java版本的protobuf以及客户端工具所需的C#版本。另外，通过“编译使用proto的工具.bat”，会调用Visual Studio将全部客户端工具重新编译为可执行程序
