@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManager", "GameManager\GameManager.csproj", "{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {625A4241-F00E-448B-82E3-FCA2D65BFAE1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,109 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+import "common.proto";
+
+// GM客户端与GM服务器通讯协议名
+enum GmRpcNameEnum {
+	GmRpcLogin = 100101;                         // GM用户登录
+
+	GmRpcGetAllServerState = 100201;             // 获取所有服务器状态信息
+	GmRpcExecuteCmd = 100202;                    // 让GM服务器发送GM指令给指定服务器
+	GmRpcGetOnlineUserInfo = 100203;             // 获取所有在线玩家信息
+
+	GmRpcForceOfflinePush = 200001;              // GM客户端强制下线推送
+	GmRpcTextMsgPush = 200002;                   // GM服务器向GM客户端推送文本消息
+}
+
+// GM客户端与GM服务器通讯协议错误码
+enum GmRpcErrorCodeEnum {
+	GmRpcOk = 0;
+	GmRpcServerError = 1;                        // GM服务器内部错误
+	GmRpcClientError = 2;                        // GM客户端请求参数非法
+
+	GmRpcErrorOperatedUserIdNotExist = 11;       // 要操作的玩家userId不存在
+	GmRpcErrorOperatedUserIsOnline = 12;         // 为了安全，禁止操作在线玩家
+
+	GmRpcLoginErrorUsernameIsNotExist = 1001011; // GM用户登录错误，用户名没注册过
+	GmRpcLoginErrorPasswordWrong = 1001012;      // GM用户登录错误，密码错误
+}
+
+// GM用户信息存储
+message GmUserData {
+	optional int32 userId = 1;
+	optional string username = 2;
+	optional string passwordMD5 = 3;             // MD5加密后的密码
+	optional int64 registTimestamp = 4;          // 注册时间戳
+	optional int64 lastLoginTimestamp = 5;       // 上次登录的时间戳
+	optional string lastLoginIp = 6;             // 上次登录的IP
+}
+
+// GM用户信息
+message GmUserInfo {
+	optional int32 userId = 1;
+	optional string username = 2;
+}
+
+// 服务器信息及负载情况
+message ServerLoadBalanceInfo {
+	optional int32 id = 1;
+	optional string ip = 2;
+	optional int32 loadBalance = 3;
+
+	optional bool isMainLogicServer = 4;         // 如果是逻辑服务器，需发是不是主逻辑服务器
+	optional string gatewayConnectPath = 5;      // 如果是gateway，需发供客户端连接的地址
+}
+
+// GM用户登录（GmRpcLogin = 100101）
+message GmLoginRequest {
+	optional string username = 1;
+	optional string passwordMD5 = 2;          // MD5加密后的密码
+}
+message GmLoginResponse {
+	optional GmUserInfo gmUserInfo = 1;
+}
+
+// 获取所有服务器状态信息（GmRpcGetAllServerState = 100201）
+message GmGetAllServerStateRequest {
+}
+message GmGetAllServerStateResponse {
+	repeated ServerLoadBalanceInfo logicServerInfos = 1;
+	repeated ServerLoadBalanceInfo battleServerInfos = 2;
+	repeated ServerLoadBalanceInfo gatewayInfos = 3;
+}
+
+// 让GM服务器发送GM指令给指定服务器（GmRpcExecuteCmd = 100202）
+message GmExecuteCmdRequest {
+	optional GmCmdTypeEnum cmdType = 1;
+	optional RemoteServerTypeEnum serverType = 2;
+	repeated int32 serverIds = 3;              // 操作个别服务器传对应id，留空表示操作该类型所有在线服务器
+	repeated string params = 4;                // 不同指令所需的操作参数
+}
+message GmExecuteCmdResponse {
+}
+
+// 获取所有在线玩家信息（GmRpcGetOnlineUserInfo = 100203）
+message GmGetOnlineUserInfoRequest {
+}
+message GmGetOnlineUserInfoResponse {
+	repeated OnlineUserInfo onlineUserInfos = 1;
+}
+
+// ------------------------------ 服务器推送 ------------------------------
+
+// GM客户端被强制下线的原因
+enum GmForceOfflineReasonEnum {
+	GmForceOfflineServerNotAvailable = 1;     // 服务器不可用
+	GmForceOfflineSameUserLogin = 2;          // 同一账号同时异地登录，踢掉之前登录的
+}
+
+// GM客户端强制下线推送（GmRpcForceOfflinePush = 200001）
+message GmForceOfflinePush {
+	optional GmForceOfflineReasonEnum forceOfflineReason = 1;
+}
+
+// GM服务器向GM客户端推送文本消息（GmRpcTextMsgPush = 200002）
+message GmTextMsgPush {
+	optional string text = 1;
+}

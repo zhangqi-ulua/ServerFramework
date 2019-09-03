@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4F64269-BA4E-4BDE-8F10-D41ADB8CC791}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RedisDataViewer</RootNamespace>
+    <AssemblyName>RedisDataViewer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\release\RedisDataViewer\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\release\RedisDataViewer\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStack.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.5.6.0\lib\net45\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.5.6.0\lib\net45\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Redis.5.6.0\lib\net45\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.5.6.0\lib\net45\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3rd\protobuf-csharp-lite\AbstractBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\AbstractMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ByteArray.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ByteString.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedOutputStream.ComputeSize.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedTextInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedTextOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Dictionaries.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Enumerables.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\IPopsicleList.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Lists.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\PopsicleList.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\ReadOnlyDictionary.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\FieldMappingAttribute.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\FieldType.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\MappedType.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\EnumLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtendableBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtendableMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtensionRegistryLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\FieldSet.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\FrameworkPortability.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedExtensionLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\IBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ICodedInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ICodedOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\IMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\InvalidProtocolBufferException.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextFormat.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextGenerator.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextTokenizer.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ThrowHelper.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\UninitializedMessageException.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\WireFormat.cs" />
+    <Compile Include="AppValues.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proto\BaseBattle.cs" />
+    <Compile Include="proto\Common.cs" />
+    <Compile Include="proto\Gm.cs" />
+    <Compile Include="proto\LocalServer.cs" />
+    <Compile Include="proto\RemoteServer.cs" />
+    <Compile Include="proto\Rpc.cs" />
+    <Compile Include="RedisManager.cs" />
+    <Compile Include="StringUtil.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favorite.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="history.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="redisKeyConfig.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

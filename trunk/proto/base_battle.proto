@@ -1,0 +1,144 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+import "common.proto";
+
+// 一场战斗的信息
+message BattleInfo {
+	repeated UserBriefInfo userBriefInfos = 1;     // 玩家简略信息（按行动顺序排列）
+	optional CurrentTurnInfo currentTurnInfo = 2;  // 当前回合信息
+	repeated int32 battleCellInfo = 3;             // 九宫格从左上角开始，下标为0，然后逐行逐列递增下标。没有棋子的位置值为0，否则值为先后手的行动顺序（先手为1，后手为2）
+	optional int64 battleStartTimestamp = 4;       // 战斗开始的时间戳
+	repeated int32 notReadyUserIds = 5;            // 尚未准备开始游戏的玩家
+	optional int32 lastEventNum = 6;               // 对局中上一个事件编号
+}
+
+// 当前回合信息
+message CurrentTurnInfo {
+	optional int32 turnCount = 1;                  // 当前回合数（开局后，先手首个回合为1，再轮到先手行动时，回合数+1）
+	optional int32 userId = 2;                     // 当前回合的玩家
+	optional int64 turnStartTimestamp = 3;         // 当前回合开始的时间
+}
+
+message BattleRecordData {
+	optional BattleTypeEnum battleType = 1;
+	optional string battleId = 2;
+	repeated UserBriefInfo userBriefInfos = 3;     // 玩家简略信息（按行动顺序排列）
+	optional int64 battleStartTimestamp = 4;       // 战斗开始的时间戳
+	optional int64 battleEndTimestamp = 5;         // 战斗结束的时间戳
+	optional int32 turnCount = 6;                  // 对战了几回合
+	optional int32 winnerUserId = 7;               // 获胜者的userId（平局为0）
+	optional GameOverReasonEnum gameOverReason = 8;// 游戏结束的原因
+}
+
+// 获取当前所在对局的信息（GetBattleInfo = 6001）
+message GetBattleInfoRequest {
+}
+message GetBattleInfoResponse {
+	optional BattleInfo battleInfo = 1;
+}
+
+// 投降认输（Concede = 6002）
+message ConcedeRequest {
+}
+message ConcedeResponse {
+	optional EventMsgList eventList = 1;
+}
+
+// 落子（PlacePieces = 6003）
+message PlacePiecesRequest {
+	optional int32 lastEventNum = 1;             // 对局中上一个事件编号，以此可知客户端是否已同步最新对局信息
+	optional int32 index = 2;                    // 落在哪个位置（九宫格0-8的下标位置）
+}
+message PlacePiecesResponse {
+	optional EventMsgList eventList = 1;
+}
+
+// 客户端发现当前回合玩家超时未行动，请求服务器强制结束回合（ForceEndTurn = 6004）
+message ForceEndTurnRequest {
+	optional CurrentTurnInfo forceEndTurnInfo = 1;  // 因为两个客户端监测到超时未操作时，都会请求服务器。而第一个请求被服务器处理后，就会开始下一个回合。请求时，带上此信息，服务器便可分辨此情况
+}
+message ForceEndTurnResponse {
+	optional bool isChecked = 1;                 // 是否通过服务器校验，确认确实应该强制结束回合
+	optional int64 forceEndTurnTimestamp = 2;    // 如果服务器认为还没有到时间，告知客户端强制结束时的时间戳
+	optional int64 remainMsec = 3;               // 如果服务器认为还没有到时间，告知客户端此时距离强制结束回合剩余毫秒数
+}
+
+// 确认可以开始游戏（ReadyToStartGame = 6005）
+message ReadyToStartGameRequest {
+}
+message ReadyToStartGameResponse {
+}
+
+// 超时未确认可以开始游戏，则强制开始游戏（ForceReadyToStartGame = 6006）
+message ForceReadyToStartGameRequest {
+}
+message ForceReadyToStartGameResponse {
+	optional bool isChecked = 1;                 // 是否通过服务器校验，确认确实应该强制开始游戏
+	optional int64 forceStartGameTimestamp = 2;  // 如果服务器认为还没有到时间，告知客户端强制开始游戏时的时间戳
+	optional int64 remainMsec = 3;               // 如果服务器认为还没有到时间，告知客户端此时距离强制开始游戏剩余毫秒数
+}
+
+// ------------------------------ 事件相关 ------------------------------
+
+// 事件类型
+enum EventTypeEnum {
+	EventTypeGameOver = 1;                         // 对战结束
+	EventTypeStartTurn = 2;                        // 回合开始
+	EventTypeEndTurn = 3;                          // 回合结束
+	EventTypePlacePieces = 4;                      // 落子
+}
+
+// 一个事件消息
+message EventMsg {
+	optional int32 eventNum = 1;                   // 事件编号（从1计，一局游戏第1个事件为先手玩家的StartTurnEvent事件）
+	optional EventTypeEnum eventType = 2;          // 事件类型
+
+	optional GameOverEvent gameOverEvent = 6;
+	optional StartTurnEvent startTurnEvent = 7;
+	optional EndTurnEvent endTurnEvent = 8;
+	optional PlacePiecesEvent placePiecesEvent = 9;
+}
+
+// 多个事件组成的事件组
+message EventMsgList {
+	repeated EventMsg msgList = 1;
+}
+
+// 游戏结束的原因
+enum GameOverReasonEnum {
+	GameOverPlayerWin = 1;                         // 一方胜利
+	GameOverPlayerConcede = 2;                     // 一方投降
+	GameOverDraw = 3;                              // 平局
+}
+
+// 游戏结束事件
+message GameOverEvent {
+	optional int32 winnerUserId = 1;               // 获胜者的userId（平局为0）
+	optional GameOverReasonEnum gameOverReason = 2;// 游戏结束的原因
+}
+
+// 回合开始事件
+message StartTurnEvent {
+	optional CurrentTurnInfo currentTurnInfo = 1;  // 当前回合信息
+}
+
+// 回合结束事件
+message EndTurnEvent {
+	optional int32 endTurnUserId = 1;              // 结束了哪个玩家的回合
+	optional bool isForceEndTurn = 2;              // 是否因为超时，由系统强制结束回合
+}
+
+// 落子事件
+message PlacePiecesEvent {
+	optional int32 userId = 1;                     // 哪个玩家的操作
+	optional int32 index = 2;                      // 落在哪个位置（九宫格0-8的下标位置）
+}
+
+// ------------------------------ 服务器推送 ------------------------------
+
+// 战斗服务器推送给玩家场上发生的事件信息（BattleEventMsgListPush = 22001）
+message BattleEventMsgListPush {
+	optional EventMsgList eventMsgList = 1;
+}

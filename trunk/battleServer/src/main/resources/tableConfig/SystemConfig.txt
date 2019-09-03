@@ -1,0 +1,1 @@
+{"usernameMaxLength":{"key":"usernameMaxLength","value":"18"},"passwordMinLength":{"key":"passwordMinLength","value":"8"},"passwordMaxLength":{"key":"passwordMaxLength","value":"18"},"nicknameMaxLength":{"key":"nicknameMaxLength","value":"8"},"readyToStartGameSecond":{"key":"readyToStartGameSecond","value":"10"},"turnSecond":{"key":"turnSecond","value":"10"}}

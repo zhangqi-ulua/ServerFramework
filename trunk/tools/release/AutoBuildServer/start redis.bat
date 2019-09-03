@@ -1,0 +1,1 @@
+call "..\..\3rd\Redis-x64-3.2.100\start redis.bat"

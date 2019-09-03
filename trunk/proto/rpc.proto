@@ -1,0 +1,58 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+// 客户端与服务器通讯协议名
+enum RpcNameEnum {
+	Regist = 101;                    // 注册
+	Login = 102;                     // 登录
+
+	Match = 111;                     // 对战匹配
+	CancelMatch = 112;               // 取消对战匹配
+
+	// ------------- 对战相关 -------------
+	GetBattleInfo = 6001;            // 获取当前所在对局的信息
+	Concede = 6002;                  // 投降认输
+	PlacePieces = 6003;              // 落子
+	ForceEndTurn = 6004;             // 客户端发现当前回合玩家超时未行动，请求服务器强制结束回合
+	ReadyToStartGame = 6005;         // 确认可以开始游戏
+	ForceReadyToStartGame = 6006;    // 超时未确认可以开始游戏，则强制开始游戏
+
+	// ------------- 服务器推送 -------------
+	ForceOfflinePush = 20001;        // 强制下线推送
+
+	MatchResultPush = 21001;         // 主逻辑服务器推送给玩家匹配结果
+
+	BattleEventMsgListPush = 22001;  // 战斗服务器推送给玩家场上发生的事件信息
+}
+
+// 客户端与服务器通讯协议错误码
+enum RpcErrorCodeEnum {
+	Ok = 0;                          // 正常
+	ServerError = 1;                 // 服务器内部错误
+	ClientError = 2;                 // 客户端请求参数非法
+	ServerNotAvailable = 3;          // 服务器当前不可用
+
+	UserNotInBattle = 11;            // 玩家不在对战中
+	BattleNotStart = 12;             // 游戏尚未开始（需双方都确认ReadyToStartGame）
+	IsNotUserTurn = 13;              // 不是该玩家的回合
+	InputLastEventNumError = 14;     // 客户端请求对战操作时附带的lastEventNum错误，说明发生丢包
+
+	RegisErrorUsernameIsExist = 1011;              // 无法注册，用户名已存在
+	RegisErrorUsernameIllegal = 1012;              // 无法注册，用户名非法
+	RegisErrorPasswordIllegal = 1013;              // 无法注册，密码非法
+	LoginErrorUsernameIsNotExist = 1021;           // 无法登录，用户名不存在
+	LoginErrorPasswordWrong = 1022;                // 无法登录，密码错误
+	LoginErrorForbid = 1023;                       // 无法登录，账号被封禁
+
+	MatchErrorMatching = 1111;                     // 无法匹配，目前就是匹配状态
+	MatchErrorPlaying = 1112;                      // 无法匹配，已经在对战中
+	MatchErrorOtherActionState = 1113;             // 无法匹配，处于其他状态
+	CancelMatchErrorPlaying = 1121;                // 取消匹配失败，已经在对战中
+	CancelMatchErrorNotMatching = 1122;            // 取消匹配失败，没有在匹配中
+
+	PlacePiecesErrorIndexError = 60031;            // 请求落子错误，要落子的位置非法
+	PlacePiecesErrorIndexIsNotEmpty = 60032;       // 请求落子错误，要落子的位置已经有棋子
+	ReadyToStartGameErrorAlreadyReady = 60051;     // 确认可以开始游戏错误，已经确认过了
+	ForceReadyToStartGameErrorAlreadyStart = 60052;// 请求强制开始游戏错误，游戏已经开始了
+}

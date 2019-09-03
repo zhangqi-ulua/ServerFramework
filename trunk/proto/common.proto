@@ -1,0 +1,168 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+// 服务器类型
+enum RemoteServerTypeEnum {
+	ServerTypeLogic = 1;
+	ServerTypeBattle = 2;
+	ServerTypeGateway = 3;
+	ServerTypeGm = 4;
+}
+
+// GM命令类型
+enum GmCmdTypeEnum {
+	GmCmdReloadTableConfig = 1;
+	GmCmdCloseServer = 2;
+}
+
+// 在线玩家详情
+message OnlineUserInfo {
+	optional int32 userId = 1;
+	optional ChannelEnum channel = 2;
+	optional string username = 3;
+	optional string nickname = 4;
+	optional UserState userState = 5;
+	optional int32 sessionId = 6;
+	optional int32 connectGatewayId = 7;
+	optional int32 connectLogicServerId = 8;
+	optional int32 connectBattleServerId = 9;
+	optional int64 loginedTimestamp = 10;
+}
+
+// 渠道
+enum ChannelEnum {
+	ChannelNone = 0;
+}
+
+// 语种
+enum LangEnum {
+	LangCn = 0;
+}
+
+// 玩家在线状态
+enum UserOnlineStateEnum {
+	Offline = 0;
+	Online = 1;
+}
+
+// 玩家行为状态
+enum UserActionStateEnum {
+	ActionNone = 0;
+	Matching = 1;                       // 匹配中
+	Playing = 2;                        // 对战中
+}
+
+// 玩家状态
+message UserState {
+	optional UserOnlineStateEnum onlineState = 1;
+	optional UserActionStateEnum actionState = 2;
+	optional BattleTypeEnum battleType = 3;   // 如果action是匹配或者对战，存储对战类型
+	optional string battleId = 4;             // 如果action是对战，存储对局id
+}
+
+// 玩家信息（玩家自己可查看的信息）
+message UserInfo {
+	optional int32 userId = 1;          // 用户id
+	optional string username = 2;       // 用户名
+	optional string nickname = 3;       // 昵称
+	optional ChannelEnum channel = 4;   // 渠道
+	optional LangEnum lang = 5;         // 语种
+	optional UserState userState = 6;   // 在线以及行为状态
+}
+
+// 玩家简略信息（其他玩家可查看的信息）
+message UserBriefInfo {
+	optional int32 userId = 1;          // 用户id
+	optional string nickname = 2;       // 昵称
+	optional ChannelEnum channel = 3;   // 渠道
+	optional LangEnum lang = 4;         // 语种
+	optional UserState userState = 5;   // 在线以及行为状态
+}
+
+// 玩家信息存储
+message UserData {
+	optional int32 userId = 1;
+	optional string username = 2;
+	optional string passwordMD5 = 3;          // MD5加密后的密码
+	optional string nickname = 4;             // 昵称
+	optional ChannelEnum channel = 5;         // 渠道
+	optional LangEnum lang = 6;               // 语种
+	optional int64 registTimestamp = 7;       // 注册时间戳
+	optional string registIp = 8;             // 注册IP
+	optional int64 lastLoginTimestamp = 9;    // 上次登录的时间戳
+	optional string lastLoginIp = 10;         // 上次登录的IP
+	optional UserForbidInfo forbidInfo = 11;  // 如果有此字段，说明玩家账号被封禁
+}
+
+// 玩家被封禁原因
+enum UserForbidReasonEnum {
+	UserForbidReasonGmOperate = 1;            // GM管理员手工操作封禁
+	UserForbidReasonCheat = 2;                // 服务器发现明显只能是玩家破解、伪造数据包进行请求时，自动封禁
+}
+
+// 玩家被封禁信息
+message UserForbidInfo {
+	optional UserForbidReasonEnum forbidReason = 1;
+	optional int64 forbidStartTimestamp = 2;  // 封禁开始时间
+	optional int64 forbidEndTimestamp = 3;    // 封禁结束时间
+}
+
+// 对战类型
+enum BattleTypeEnum {
+	BattleTypeTwoPlayer = 1;                  // 1V1
+}
+
+// 注册（Regist = 101）
+message RegistRequest {
+	optional string username = 1;       // 用户名
+	optional ChannelEnum channel = 2;   // 渠道
+	optional LangEnum lang = 3;         // 语种
+	optional string password = 4;       // 原始明文密码，是为了服务器校验密码长度、复杂度等是否合法，校验通过后需进行MD5加密存储
+}
+message RegistResponse {
+}
+
+// 登录（Login = 102）
+message LoginRequest {
+	optional string username = 1;       // 用户名
+	optional string passwordMD5 = 2;    // MD5加密后的密码
+}
+message LoginResponse {
+	optional UserInfo userInfo = 1;
+	optional int64 timestamp = 2;       // 服务器时间戳（距离1970年的毫秒数）
+}
+
+// 对战匹配（Match = 111）
+message MatchRequest {
+	optional BattleTypeEnum battleType = 1;
+}
+message MatchResponse {
+}
+
+// 取消对战匹配（CancelMatch = 112）
+message CancelMatchRequest {
+}
+message CancelMatchResponse {
+}
+
+// ------------------------------ 服务器推送 ------------------------------
+
+// 被强制下线的原因
+enum ForceOfflineReasonEnum {
+	ForceOfflineServerNotAvailable = 1;     // 服务器不可用
+	ForceOfflineSameUserLogin = 2;          // 同一账号同时异地登录，踢掉之前登录的
+}
+
+// 强制下线推送（ForceOfflinePush = 20001）
+message ForceOfflinePush {
+	optional ForceOfflineReasonEnum forceOfflineReason = 1;
+}
+
+// 主逻辑服务器推送给玩家匹配结果（MatchResultPush = 21001）
+message MatchResultPush {
+	optional bool isSuccess = 1;
+	optional BattleTypeEnum battleType = 2;
+	optional string battleId = 3;
+	repeated UserBriefInfo userBriefInfos = 4;  // 玩家简略信息（按行动顺序排列）
+}

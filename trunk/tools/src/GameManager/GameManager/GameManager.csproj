@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{882BF12C-BBC0-4C28-BCA3-2BB7A547A8CB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GameManager</RootNamespace>
+    <AssemblyName>GameManager</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\release\GameManager\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\release\GameManager\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3rd\protobuf-csharp-lite\AbstractBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\AbstractMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ByteArray.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ByteString.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedOutputStream.ComputeSize.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedTextInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\CodedTextOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Dictionaries.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Enumerables.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\IPopsicleList.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\Lists.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\PopsicleList.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Collections\ReadOnlyDictionary.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\FieldMappingAttribute.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\FieldType.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\Descriptors\MappedType.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\EnumLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtendableBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtendableMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ExtensionRegistryLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\FieldSet.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\FrameworkPortability.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedExtensionLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\GeneratedMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\IBuilderLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ICodedInputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ICodedOutputStream.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\IMessageLite.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\InvalidProtocolBufferException.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextFormat.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextGenerator.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\TextTokenizer.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\ThrowHelper.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\UninitializedMessageException.cs" />
+    <Compile Include="3rd\protobuf-csharp-lite\WireFormat.cs" />
+    <Compile Include="3rd\websocket-sharp\ByteOrder.cs" />
+    <Compile Include="3rd\websocket-sharp\CloseEventArgs.cs" />
+    <Compile Include="3rd\websocket-sharp\CloseStatusCode.cs" />
+    <Compile Include="3rd\websocket-sharp\CompressionMethod.cs" />
+    <Compile Include="3rd\websocket-sharp\ErrorEventArgs.cs" />
+    <Compile Include="3rd\websocket-sharp\Ext.cs" />
+    <Compile Include="3rd\websocket-sharp\Fin.cs" />
+    <Compile Include="3rd\websocket-sharp\HttpBase.cs" />
+    <Compile Include="3rd\websocket-sharp\HttpRequest.cs" />
+    <Compile Include="3rd\websocket-sharp\HttpResponse.cs" />
+    <Compile Include="3rd\websocket-sharp\LogData.cs" />
+    <Compile Include="3rd\websocket-sharp\Logger.cs" />
+    <Compile Include="3rd\websocket-sharp\LogLevel.cs" />
+    <Compile Include="3rd\websocket-sharp\Mask.cs" />
+    <Compile Include="3rd\websocket-sharp\MessageEventArgs.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\AuthenticationBase.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\AuthenticationChallenge.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\AuthenticationResponse.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\AuthenticationSchemes.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\Chunk.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ChunkedRequestStream.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ChunkStream.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ClientSslConfiguration.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\Cookie.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\CookieCollection.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\CookieException.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\EndPointListener.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\EndPointManager.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpBasicIdentity.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpConnection.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpDigestIdentity.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpHeaderInfo.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpHeaderType.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListener.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerAsyncResult.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerContext.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerException.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerPrefix.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerPrefixCollection.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerRequest.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpListenerResponse.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpRequestHeader.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpResponseHeader.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpStatusCode.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpStreamAsyncResult.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpUtility.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\HttpVersion.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\InputChunkState.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\InputState.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\LineState.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\NetworkCredential.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\QueryStringCollection.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ReadBufferState.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\RequestStream.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ResponseStream.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\ServerSslConfiguration.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\WebHeaderCollection.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\WebSockets\HttpListenerWebSocketContext.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\WebSockets\TcpListenerWebSocketContext.cs" />
+    <Compile Include="3rd\websocket-sharp\Net\WebSockets\WebSocketContext.cs" />
+    <Compile Include="3rd\websocket-sharp\Opcode.cs" />
+    <Compile Include="3rd\websocket-sharp\PayloadData.cs" />
+    <Compile Include="3rd\websocket-sharp\Rsv.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\HttpRequestEventArgs.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\HttpServer.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\IWebSocketSession.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\ServerState.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketBehavior.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketServer.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketServiceHost.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketServiceHost`1.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketServiceManager.cs" />
+    <Compile Include="3rd\websocket-sharp\Server\WebSocketSessionManager.cs" />
+    <Compile Include="3rd\websocket-sharp\WebSocket.cs" />
+    <Compile Include="3rd\websocket-sharp\WebSocketException.cs" />
+    <Compile Include="3rd\websocket-sharp\WebSocketFrame.cs" />
+    <Compile Include="3rd\websocket-sharp\WebSocketState.cs" />
+    <Compile Include="AppValues.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineUserInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlineUserInfoForm.Designer.cs">
+      <DependentUpon>OnlineUserInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proto\Common.cs" />
+    <Compile Include="proto\Gm.cs" />
+    <Compile Include="WebSocketManager.cs" />
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlineUserInfoForm.resx">
+      <DependentUpon>OnlineUserInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="3rd\websocket-sharp\websocket-sharp.snk" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

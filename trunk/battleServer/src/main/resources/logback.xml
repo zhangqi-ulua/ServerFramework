@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 勿对此文件进行格式整理，eclipse自动整理会换行<encoder><pattern>中的格式，导致log也被换行 -->
+<configuration>
+	<appender name="console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>log/gateway.log</File>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>log/gateway-%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxHistory>365</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>1000MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} - %msg%n
+			</pattern>
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="errorFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<File>log/gateway_error.log</File>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>log/gateway_error-%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxHistory>365</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>1000MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} - %msg%n
+			</pattern>
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<root>
+		<level value="error" />
+		<level value="warn" />
+		<level value="info" />
+		<appender-ref ref="file" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="console" />
+	</root>
+
+</configuration>   

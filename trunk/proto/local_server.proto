@@ -1,0 +1,12 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+// 服务器内部通信协议名
+enum LocalRpcNameEnum {
+	LocalRpcRegistToGmServer = 300001;           // 向GM服务器注册
+
+	LocalRpcLogicServerMatch = 310001;           // logicServer循环通知自己进行匹配计算
+
+	LocalRpcBattleServerInitBattle = 320001;     // battleServer通知初始化战斗
+}

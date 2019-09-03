@@ -1,0 +1,89 @@
+package org.zhangqi.proto;
+
+option optimize_for = SPEED;
+
+import "common.proto";
+
+// 服务器间通信协议名
+enum RemoteRpcNameEnum {
+	RemoteRpcRegistServer = 400101;                     // 逻辑、战斗、gateway服务器向GM服务器注册自己
+	RemoteRpcNoticeExecuteGmCmd = 400102;               // GM服务器向指定服务器发GM命令
+	RemoteRpcNoticeGmServerTextMsg = 400103;            // 逻辑、战斗、gateway服务器向GM服务器推送文本内容（比如异步回应GM命令执行情况）
+
+	RemoteRpcNoticeBattleServerCreateNewBattle = 410101;// 主逻辑服务器在匹配成功后通知指定的战斗服务器创建战场
+	
+	RemoteRpcGatewayNoticeClientOfflinePush = 500001;   // gateway监测到客户端离线后通知逻辑服、战斗服
+	RemoteRpcLogicServerNoticeGatewayForceOfflineClient = 500002;    // logicServer在发现同一账号二次登录时，通知旧session所在的gateway进行强制下线
+}
+
+// 服务器间通信错误码
+enum RemoteRpcErrorCodeEnum {
+	RemoteRpcOk = 0;                                    // 正常
+	RemoteRpcServerError = 1;                           // 远程服务器错误
+
+	RemoteRpcRegistServerErrorHasRegisted = 4001011;    // 向GM服务器注册自己错误，已经注册过了（对应类型的服务器id被注册或者已经注册了主逻辑服务器又注册另外的主逻辑服务器）
+}
+
+// 远程服务器信息
+message RemoteServerInfo {
+	optional RemoteServerTypeEnum serverType = 1;
+	optional string akkaPath = 2;            // 用akka进行连接的服务器地址
+	optional int32 serverId = 3;             // 服务器编号
+
+	optional bool isMainLogicServer = 4;     // 如果是逻辑服务器，需发是不是主逻辑服务器（只有主逻辑服务器处理注册、匹配等）
+	optional string gatewayConnectPath = 5;  // 如果是gateway，需发供客户端连接的地址
+}
+
+// 逻辑、战斗、gateway服务器向GM服务器注册自己（RemoteRpcRegistServer = 400101）
+message RegistServerRequest {
+	optional RemoteServerInfo serverInfo = 1;
+}
+message RegistServerResponse {
+}
+
+// GM服务器向指定服务器发GM命令（RemoteRpcNoticeExecuteGmCmd = 400102）
+message NoticeExecuteGmCmdRequest {
+	optional GmCmdTypeEnum cmdType = 1;
+	repeated string params = 2;              // 不同指令所需的操作参数
+}
+message NoticeExecuteGmCmdResponse {
+}
+
+// 逻辑、战斗、gateway服务器向GM服务器推送文本内容（比如异步回应GM命令执行情况）（RemoteRpcNoticeGmServerTextMsg = 400103）
+message NoticeGmServerTextMsgRequest {
+	optional RemoteServerTypeEnum serverType = 1;
+	optional int32 serverId = 2;
+	optional string text = 3;
+}
+message NoticeGmServerTextMsgResponse {
+}
+
+// 一个对战房间的信息
+message BattleRoomInfo {
+	optional BattleTypeEnum battleType = 1;
+	optional string battleId = 2;
+	repeated int32 userIds = 3;              // 按行动顺序排列的对战玩家userId
+}
+
+// 主逻辑服务器在匹配成功后通知指定的战斗服务器创建战场（RemoteRpcNoticeBattleServerCreateNewBattle = 410101）
+message NoticeBattleServerCreateNewBattleRequest {
+	optional BattleRoomInfo battleRoomInfo = 1;
+}
+message NoticeBattleServerCreateNewBattleResponse {
+	optional BattleRoomInfo battleRoomInfo = 1;
+}
+
+// ------------------------------ 服务器推送 ------------------------------
+
+// gateway监测到客户端离线后通知逻辑服、战斗服（RemoteRpcGatewayNoticeClientOfflinePush = 500001）
+message GatewayNoticeClientOfflinePush {
+	optional int32 sessionId = 1;
+	optional int32 userId = 2;               // 如果该session对应的客户端登录成功，需发此字段
+	optional bool isUserOffline = 3;         // 是否是玩家也要下线（同一账号二次登录导致旧session断开，但对应玩家仍在线）
+}
+
+// logicServer在发现同一账号二次登录时，通知旧session所在的gateway进行强制下线（RemoteRpcLogicServerNoticeGatewayForceOfflineClient = 500002）
+message LogicServerNoticeGatewayForceOfflineClientPush {
+	optional int32 sessionId = 1;
+	optional ForceOfflineReasonEnum forceOfflineReason = 2;
+}
