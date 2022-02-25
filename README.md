@@ -51,3 +51,8 @@
 在trunk\proto中执行“compile.bat”，可编译服务器所需Java版本的protobuf以及客户端工具所需的C#版本。另外，通过“编译使用proto的工具.bat”，会调用Visual Studio将全部客户端工具重新编译为可执行程序
 ### 配置表格的使用
 在trunk\tableConfig下放置所需的配置表格。导表工具使用我开源的[<b>XlsxToLua</b>](https://github.com/zhangqi-ulua/XlsxToLua)（具体使用方法请移步查看），导出路径和参数等已经做好了默认配置
+
+## 赞助
+如果您觉得软件还不错，并且愿意请作者喝杯咖啡的话，欢迎打赏<br/>
+<img src="https://github.com/zhangqi-ulua/FiddlerHeadConvertor/blob/main/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/wechat.jpg" width="40%">
+<img src="https://github.com/zhangqi-ulua/FiddlerHeadConvertor/blob/main/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/alipay.jpg" width="40%">
